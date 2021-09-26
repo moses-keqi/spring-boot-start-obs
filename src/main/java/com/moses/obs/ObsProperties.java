@@ -18,12 +18,9 @@ public class ObsProperties {
 
     //终端节点 默认华北-北京四
     private String endPoint = "obs.cn-north-4.myhuaweicloud.com";
-//    private String endPoint = "life-agent-download.djbx.com";
 
     //自定义域名
     private  String customUrl = "";
-
-    //https://life-agent-download.djbx.com/test/videos/test111.mp4
 
     //accessKey
     //Access Key ID，接入键标识，用户在OBS系统中的接入键标识，一个接入键标识唯一对应一个用户，一个用户可以同时拥有多个接入键标识。OBS系统通过接入键标识识别访问系统的用户。
