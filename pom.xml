@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <com.alibaba.fastjson.version>1.2.68</com.alibaba.fastjson.version>
+        <com.alibaba.fastjson.version>1.2.83</com.alibaba.fastjson.version>
         <com.huaweicloud.esdk-obs-java.version>3.19.7</com.huaweicloud.esdk-obs-java.version>
 
         <version.compiler-plugin>3.5.1</version.compiler-plugin>
