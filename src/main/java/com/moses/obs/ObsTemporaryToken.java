@@ -27,7 +27,7 @@ public class ObsTemporaryToken {
 
     private static final Logger logger = LoggerFactory.getLogger(ObsTemporaryToken.class);
 
-    private ObsProperties obsProperties;
+    private final ObsProperties obsProperties;
 
 
     public ObsTemporaryToken(ObsProperties obsProperties){
@@ -109,9 +109,6 @@ public class ObsTemporaryToken {
     }
 
     private Map<String, Object> getSecurityToken(String token) {
-        if(token == null) {
-
-        }
         Request.Builder builder = new Request.Builder();
         builder.addHeader("Content-Type", "application/json;charset=utf8");
         builder.url(String.format("%s/v3.0/OS-CREDENTIAL/securitytokens", obsProperties.getIamEndPoint()));
@@ -170,7 +167,7 @@ public class ObsTemporaryToken {
         Response res = c.execute();
         if (res.body() != null) {
             String content = res.body().string();
-            if (content == null || content.trim().equals("")) {
+            if (content.trim().equals("")) {
                 logger.info("\n");
             } else {
                 logger.info("Content: {}\n\n", content);
@@ -195,8 +192,7 @@ public class ObsTemporaryToken {
 
             @Override
             public X509Certificate[] getAcceptedIssuers() {
-                X509Certificate[] x509Certificates = new X509Certificate[0];
-                return x509Certificates;
+                return new X509Certificate[0];
             }
         };
 
@@ -204,16 +200,14 @@ public class ObsTemporaryToken {
         try {
             sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, new TrustManager[] { xtm }, new SecureRandom());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
         }
 
         HostnameVerifier DO_NOT_VERIFY = (arg0, arg1) -> true;
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder().followRedirects(false).retryOnConnectionFailure(false)
-                .sslSocketFactory(sslContext.getSocketFactory()).hostnameVerifier(DO_NOT_VERIFY).cache(null);
+                .sslSocketFactory(sslContext.getSocketFactory(), xtm).hostnameVerifier(DO_NOT_VERIFY).cache(null);
 
         //代理
 //        if(proxyIsable) {

@@ -29,14 +29,14 @@ import java.util.Map;
 public class ObsServiceClient {
 
 
-    private Logger logger = LoggerFactory.getLogger(ObsServiceClient.class);
+    private final Logger logger = LoggerFactory.getLogger(ObsServiceClient.class);
 
-    private static OkHttpClient httpClient = new OkHttpClient.Builder().followRedirects(false)
+    private static final OkHttpClient httpClient = new OkHttpClient.Builder().followRedirects(false)
             .retryOnConnectionFailure(false).cache(null).build();
 
     private ObsClient obsClient;
 
-    private ObsProperties properties;
+    private final ObsProperties properties;
 
     public ObsServiceClient(ObsProperties properties){
         this.properties = properties;
@@ -277,8 +277,7 @@ public class ObsServiceClient {
             while ((rc = objectContent.read(buff, 0, 1024)) > 0) {
                 swapStream.write(buff, 0, rc);
             }
-            byte[] in2b = swapStream.toByteArray();
-            return in2b;
+            return swapStream.toByteArray();
         }
         return null;
     }
@@ -301,7 +300,7 @@ public class ObsServiceClient {
             publicUrl = "https://%s/%s";
         }
         //私有文件临时对外开放
-        if (obsAccessType.EXPIRE == obsAccessType){
+        if (ObsAccessType.EXPIRE == obsAccessType){
             long expire = System.currentTimeMillis() / 1000 + properties.getExpireSeconds();
             if (empty){
                 return String.format(expireUrl, properties.getCustomUrl(), objectKey
@@ -330,8 +329,7 @@ public class ObsServiceClient {
      * @return
      */
     public ObjectMetadata getObjectMetadata(String bucketName,String objectKey, String versionId){
-        ObjectMetadata result = obsClient.getObjectMetadata(bucketName, objectKey);
-        return result;
+        return obsClient.getObjectMetadata(bucketName, objectKey);
     }
 
     /**
@@ -340,7 +338,7 @@ public class ObsServiceClient {
      * @param objectKey
      */
     public void objectAclOperations(String bucketName, String objectKey, ObsAccessType obsAccessType) {
-        if (obsAccessType != null && ObsAccessType.PUBLIC == obsAccessType){
+        if (ObsAccessType.PUBLIC == obsAccessType){
             try {
                 TemporarySignatureRequest req = new TemporarySignatureRequest(HttpMethodEnum.PUT, 0l);
                 req.setBucketName(bucketName);

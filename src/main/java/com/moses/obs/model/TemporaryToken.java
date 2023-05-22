@@ -1,11 +1,13 @@
 package com.moses.obs.model;
 
+import java.io.Serializable;
+
 /**
  * @Author HanKeQi
  * @Date 2020/4/9 12:37 下午
  * @Version 1.0
  **/
-public class TemporaryToken {
+public class TemporaryToken implements Serializable {
 
     private String token;
 

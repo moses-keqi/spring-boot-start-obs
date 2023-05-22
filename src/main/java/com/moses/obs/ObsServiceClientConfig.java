@@ -18,10 +18,10 @@ import org.springframework.util.StringUtils;
  **/
 @Configuration
 @EnableConfigurationProperties({ObsProperties.class})
-@ConditionalOnProperty(prefix="fairyland.huawei.obs",name="enabled",havingValue="true")
+@ConditionalOnProperty(prefix="moses.huawei.obs",name="enabled",havingValue="true")
 public class ObsServiceClientConfig {
 
-    private static Logger logger = LoggerFactory.getLogger(ObsServiceClientConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(ObsServiceClientConfig.class);
 
     @Bean
     @ConditionalOnClass({ObsServiceClient.class})
