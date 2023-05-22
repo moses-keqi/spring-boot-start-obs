@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <com.alibaba.fastjson.version>1.2.68</com.alibaba.fastjson.version>
+        <com.alibaba.fastjson.version>1.2.83</com.alibaba.fastjson.version>
         <com.huaweicloud.esdk-obs-java.version>3.19.7</com.huaweicloud.esdk-obs-java.version>
 
         <version.compiler-plugin>3.5.1</version.compiler-plugin>
@@ -26,9 +26,15 @@
         <version.maven-gpg-plugin>1.5</version.maven-gpg-plugin>
     </properties>
 
+    <scm>
+        <url>https://github.com/moses-keqi/spring-boot-start-obs/</url>
+        <connection>https://github.com/moses-keqi/spring-boot-start-obs/.git</connection>
+    </scm>
+
     <developers>
         <developer>
-            <name>Moses</name>
+            <name>moses-keqi</name>
+            <id>moses-keqi</id>
             <email>h_anke@163.com</email>
             <url>https://github.com/moses-keqi</url>
             <timezone>+8</timezone>
@@ -112,13 +118,18 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>sonatype-release</id>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>ossrh</id>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>
-                    <id>ossrh</id>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Nexus Release Repository</name>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
